@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+    
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Workout Builder</title>
+        
+        <link rel="stylesheet" href="main.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+         
+
+    </head>
+    <body>
+  <div class="mainbdy">
+    <div class="backbtn">
+      <button class="bck" onclick="back1()"><i class="fa fa-caret-left"></i></button>
+    </div>
+
+    <div class="head">
+      <h1>Add Exercises</h1>
+    </div>
+       <div class="filter">
+      <button class="filterbtn" id="allbtn" onclick="filterExercises('all')">All</button>
+      <button class="filterbtn" id="backbtn" onclick="filterExercises('Back')">Back</button>
+      <button class="filterbtn" id="legsbtn" onclick="filterExercises('Legs')">Legs</button>
+      <button class="filterbtn" id="tricepsbtn" onclick="filterExercises('Triceps')">Triceps</button>
+    </div>
+
+    <div class="trgt">
+      <input id="searchbar" onkeyup="search_exe()" type="text" name="search" placeholder="Search">
+    </div>
+
+    <div class="exerciselist1">
+      <div class="exebox">
+        <ol id="allexercises"></ol>
+      </div>
+    </div>
+
+    <div class="addexe">
+      <button class="add" id="text">Add Exercise</button>
+    </div>
+
+   
+
+    <div class="footer">
+      <div class="box"><button class="profile" onclick="profile()" >Profile</button></div>
+      <div class="box"><button class="workout" onclick="back1()">Workout</button></div>
+      <div class="box"><button class="excercise" style="background-color: white; color: black;" >Exercise</button></div>
+    </div>
+  </div>
+</body>
+
+    
+     <script src="java.js"></script>
+    <script> let selectedMuscleType = "all";
+
+  function updateExerciseList() {
+    const list = document.getElementById("allexercises");
+      list.innerHTML = "";
+    
+
+let filteredExercises = [];
+
+if (selectedMuscleType === "all") {
+  filteredExercises = gymExercises;
+} else {
+  filteredExercises = gymExercises.filter(function(exercise) {
+    return exercise.muscle === selectedMuscleType;
+  });
+}
+
+    for (let i = 0; i < filteredExercises.length; i++) {
+      const exercise = filteredExercises[i];
+
+      const exerciseItem = document.createElement("li");
+      exerciseItem.className = "elist";
+
+      const exlistDiv = document.createElement("div");
+      exlistDiv.className = "exlist";
+
+      const trgticonDiv = document.createElement("div");
+      trgticonDiv.className = "trgticon";
+
+      const trgttxtDiv = document.createElement("div");
+      trgttxtDiv.className = "trgttxt";
+
+      const exerciseTitle = document.createElement("h4");
+      exerciseTitle.textContent = exercise.exercise;
+
+      trgttxtDiv.appendChild(exerciseTitle);
+      exlistDiv.appendChild(trgticonDiv);
+      exlistDiv.appendChild(trgttxtDiv);
+      exerciseItem.appendChild(exlistDiv);
+      list.appendChild(exerciseItem);
+    }
+  }
+
+  function filterExercises(muscleType) {
+      
+    if (selectedMuscleType === muscleType) {
+      selectedMuscleType = "all";
+    } else {
+      selectedMuscleType = muscleType;
+    }
+    updateExerciseList();
+  }
+
+  updateExerciseList();</script>
+</html>
+
